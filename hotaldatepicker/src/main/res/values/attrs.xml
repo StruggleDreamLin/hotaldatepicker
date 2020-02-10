@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="DatePickerView">
+        <attr name="autoMeasure" format="boolean" />
+        <attr name="canSelectBeforeDay" format="boolean" />
+
+        <attr name="itemWidth" format="dimension" />
+        <attr name="itemHeight" format="dimension" />
+
+        <!--size-->
+        <attr name="monthAndYearTextSize" format="dimension" />
+        <attr name="dateTextSize" format="dimension" />
+        <attr name="tipsTextSize" format="dimension" />
+
+        <!--color-->
+        <attr name="lineColor" format="color" />
+        <attr name="montAndYearTextColor" format="color" />
+        <attr name="dateBgColor" format="color" />
+        <attr name="dateNormalTextColor" format="color" />
+        <attr name="dateSelectTextColor" format="color" />
+        <attr name="invalidBgColor" format="color" />
+        <attr name="invalidTextColor" format="color" />
+        <attr name="tipsTextColor" format="color" />
+        <attr name="tipsBgColor" format="color" />
+
+        <attr name="startBg" format="reference" />
+        <attr name="startBgOnly" format="reference" />
+        <attr name="endBg" format="reference" />
+
+    </declare-styleable>
+
+</resources>

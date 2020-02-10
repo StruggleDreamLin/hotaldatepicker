@@ -1,0 +1,2 @@
+include ':app', ':hotaldatepicker'
+rootProject.name='HotalDatePickerDemo'

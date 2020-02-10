@@ -1,0 +1,64 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc01"
+    implementation 'androidx.appcompat:appcompat:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+}
+
+ext {
+    libraryPackaging = 'aar'                                            //上传aar形式的打包文件
+
+    // jcenter
+    bintrayRepo = "hotaldatepicker"                                             // 你上传的位于bintray中的Repository名称，如果没有创建会有一个叫maven的
+    name = 'hotaldatepicker'                                                // 必须和library module的名字相同
+    libraryDesc = 'An Android HotalDatePicker'
+    publishedGroupId = 'com.dreamlin.hotaldatepicker'                // 填写groupId， 一般是包名，比如：com.android.support
+    versionName = '1.0.0'                                               // 版本号，比如：22.2.1
+    websiteUrl = 'https://github.com/StruggleDreamLin/hotaldatepicker.git'              // 可以填写github上的库地址.
+    issueTrackerUrl = 'https://github.com/StruggleDreamLin/hotaldatepicker/issues'  // 可以填写github库的issue地址.
+    vcsUrl = 'https://github.com/StruggleDreamLin/hotaldatepicker.git'              // 可以填写github上库的地址.
+    licenseName = "MIT"
+    libraryVersionDesc = ''
+
+    // maven
+    artifact = 'hotaldatepicker'                                            // 必须和library module的名字相同
+    libraryName = 'hotaldatepicker'
+    developerId = 'dreamlin'
+    developerName = 'dreamlin'
+    developerEmail = 'strugglebydreamlin@gmail.com'
+    licenseName = 'MIT License'
+    licenseUrl = 'https://www.mit-license.org/'
+
+}
+apply from: 'android-maven-install.gradle'
+apply from: 'android-tasks.gradle'
+apply from: 'bintray.gradle'
