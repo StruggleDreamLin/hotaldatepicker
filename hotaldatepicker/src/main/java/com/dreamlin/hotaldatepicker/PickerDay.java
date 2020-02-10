@@ -9,9 +9,9 @@ import java.util.Date;
  * <p> Title: PickerDay </p>
  * <p> Description: </p>
  *
- * @author: dreamlin
- * @date: 2020-02-05
- * @version: V1.0.0
+ * author: dreamlin
+ * date: 2020-02-05
+ * version: V1.0.0
  * Created by dreamlin on 2020-02-05.
  */
 public class PickerDay implements Comparable<PickerDay> {

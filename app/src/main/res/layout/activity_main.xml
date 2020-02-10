@@ -12,6 +12,10 @@
         android:layout_height="wrap_content"
         app:autoMeasure="true"
         app:canSelectBeforeDay="false"
-        app:dateNormalBgColor="#FFFFFF" />
+        app:dateNormalBgColor="#FFFFFF"
+        app:dateSelectBgColor="@color/dateColor"
+        app:endBg="@drawable/bg_end"
+        app:startBg="@drawable/bg_begin_multi"
+        app:startBgOnly="@drawable/bg_begin_single" />
 
 </RelativeLayout>

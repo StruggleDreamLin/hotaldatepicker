@@ -15,9 +15,9 @@ import java.util.List;
  * <p> Title: DatePickerAdapter </p>
  * <p> Description: </p>
  *
- * @author: dreamlin
- * @date: 2020-02-06
- * @version: V1.0.0
+ * author: dreamlin
+ * date: 2020-02-06
+ * version: V1.0.0
  * Created by dreamlin on 2020-02-06.
  */
 public class DatePickerAdapter extends RecyclerView.Adapter<DatePickerAdapter.ViewHolder> {
@@ -90,8 +90,8 @@ public class DatePickerAdapter extends RecyclerView.Adapter<DatePickerAdapter.Vi
         public int mostSelectNum = 100; //最后可以选择多少天
         public int leastSelectNum = 2; //最后可以选择多少天
         public String defTag; //默认标签
-        public String beginTag; //第一个选中标签
-        public String endTag; //最后一个标签
+        public String beginTag = "入住"; //第一个选中标签
+        public String endTag = "退房"; //最后一个标签
         public String invalidTips = "包含无效日期"; //点击无效日期时的提示
         public SelectDays selectDays = new SelectDays(); //选择的日期
         public List<PickerDay> invalidDays = new ArrayList<>(); //无效的日期

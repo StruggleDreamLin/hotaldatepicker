@@ -8,7 +8,7 @@ android {
         minSdkVersion 14
         targetSdkVersion 29
         versionCode 1
-        versionName "1.0"
+        versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -21,7 +21,7 @@ android {
 
 dependencies {
     implementation project(':hotaldatepicker')
-    implementation "androidx.recyclerview:recyclerview-selection:1.1.0-rc01"
+    implementation 'androidx.recyclerview:recyclerview-selection:1.1.0-rc01'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'

@@ -16,9 +16,9 @@ import androidx.annotation.DrawableRes;
  * <p> Title: Utils </p>
  * <p> Description: </p>
  *
- * @author: dreamlin
- * @date: 2020-01-23
- * @version: V1.0.0
+ * author: dreamlin
+ * date: 2020-01-23
+ * version: V1.0.0
  * Created by dreamlin on 2020-01-23.
  */
 public class Utils {
