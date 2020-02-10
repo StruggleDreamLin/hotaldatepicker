@@ -16,7 +16,8 @@
         <!--color-->
         <attr name="lineColor" format="color" />
         <attr name="montAndYearTextColor" format="color" />
-        <attr name="dateBgColor" format="color" />
+        <attr name="dateSelectBgColor" format="color" />
+        <attr name="dateNormalBgColor" format="color" />
         <attr name="dateNormalTextColor" format="color" />
         <attr name="dateSelectTextColor" format="color" />
         <attr name="invalidBgColor" format="color" />

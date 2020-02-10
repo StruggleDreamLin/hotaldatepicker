@@ -21,9 +21,11 @@ public class MainActivity extends AppCompatActivity {
         DatePickerView dateView = findViewById(R.id.date_wrapper);
         List<PickerDay> invalidDays = new ArrayList<>();
         List<PickerDay> tags = new ArrayList<>();
-        invalidDays.add(new PickerDay(2020, 2, 10));
+        invalidDays.add(new PickerDay(2020, 2, 22));
         tags.add(new PickerDay(2020, 2, 12, "呀呀"));
         DatePickerAdapter.DateModel dateModel = new DatePickerAdapter.DateModel();
+//        dateModel.beginTag = "";
+//        dateModel.endTag = "";
         dateModel.monthCount = 12;
         dateModel.mostSelectNum = 10;
         dateModel.invalidTips = "包含无效日期";

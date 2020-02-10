@@ -36,7 +36,8 @@ public class DateView extends View implements DatePickListener {
             "日", "一", "二", "三", "四", "五", "六"
     };
 
-    Paint mLinePaint, mMonthYearPaint, mDatePaint, mSelectedBgPaint, mInvalidBgPaint, mTipsPaint, mTipsBgPaint;
+    Paint mLinePaint, mMonthYearPaint, mDatePaint, mDateBgPaint, mSelectedBgPaint,
+            mInvalidBgPaint, mTipsPaint, mTipsBgPaint;
     Bitmap startBitmap, endBitmap, startOnlyBitmap;
     Drawable startBg;
     Drawable startBgOnly;
@@ -50,7 +51,8 @@ public class DateView extends View implements DatePickListener {
     int montAndYearTextColor = Color.BLACK;
     int dateTextNormalColor = Color.parseColor("#959595");
     int dateTextSelectColor = Color.WHITE;
-    int dateBgColor = Color.parseColor("#42B3FE");
+    int dateSelectBgColor = Color.parseColor("#42B3FE");
+    int dateNormalBgColor = Color.WHITE;
     int invalidBgColor = Color.parseColor("#DEDEDE");
     int invalidTextColor = Color.parseColor("#959595");
     int tipsTextColor = Color.parseColor("#A8A8A8");
@@ -63,12 +65,13 @@ public class DateView extends View implements DatePickListener {
     boolean beforeSelect = false;//今天之前的日期是否可选
 
     private Calendar mCalendar;
-    private Calendar firstDayCalendar;
     int dayOfMonth = 30;
     private int startYear;
     private int startMonth;
 
     private String defTag;
+    private String beginTag = "入住";
+    private String endTag = "退房";
     private String invalidTips;
     private SelectDays selectDays;
     private List<PickerDay> invalidDays;
@@ -104,6 +107,7 @@ public class DateView extends View implements DatePickListener {
         mMonthYearPaint.setStrokeWidth(1);
 
         mDatePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mDateBgPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mSelectedBgPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mInvalidBgPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         mTipsPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -129,11 +133,14 @@ public class DateView extends View implements DatePickListener {
         montAndYearTextColor = drawParameters.montAndYearTextColor;
         dateTextNormalColor = drawParameters.dateTextNormalColor;
         dateTextSelectColor = drawParameters.dateTextSelectColor;
+        dateSelectBgColor = drawParameters.dateSelectBgColor;
+        dateNormalBgColor = drawParameters.dateNormalBgColor;
         invalidBgColor = drawParameters.invalidBgColor;
         invalidTextColor = drawParameters.invalidTextColor;
         tipsTextColor = drawParameters.tipsTextColor;
         tipsBgColor = drawParameters.tipsBgColor;
 
+        setBackgroundColor(dateNormalBgColor);
         if (drawParameters.startBg != null)
             startBg = drawParameters.startBg;
         if (drawParameters.startBgOnly != null)
@@ -149,7 +156,9 @@ public class DateView extends View implements DatePickListener {
         mDatePaint.setColor(dateTextNormalColor);
         mDatePaint.setTextSize(dateTextSize);
 
-        mSelectedBgPaint.setColor(dateBgColor);
+        mDateBgPaint.setColor(dateNormalBgColor);
+
+        mSelectedBgPaint.setColor(dateSelectBgColor);
 
         mInvalidBgPaint.setColor(invalidBgColor);
 
@@ -158,7 +167,6 @@ public class DateView extends View implements DatePickListener {
 
         mTipsBgPaint.setColor(tipsBgColor);
 
-//        invalidate();
     }
 
     @Override
@@ -171,10 +179,11 @@ public class DateView extends View implements DatePickListener {
         startBitmap = Utils.loadDrawable(startBg, (int) itemWidth, (int) itemHeight);
         startOnlyBitmap = Utils.loadDrawable(startBgOnly, (int) itemWidth, (int) itemHeight);
         endBitmap = Utils.loadDrawable(endBg, (int) itemWidth, (int) itemHeight);
-        int offsetY = drawWeeks() ? (int) (Utils.dp2px(24) + mDatePaint.getFontSpacing()) : 0;
-        int weekDay = firstDayCalendar.get(Calendar.DAY_OF_WEEK);
+        int offsetY = drawWeeks() ? (int) (Utils.dp2px(40) + mMonthYearPaint.getFontSpacing() + mDatePaint.getFontSpacing()) :
+                (int) (Utils.dp2px(24) + mDatePaint.getFontSpacing());
+        int weekDay = mCalendar.get(Calendar.DAY_OF_WEEK);
         dayOfMonth = mCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-        int allItemCount = ((weekDay - 1) << 1) + 1 + dayOfMonth;
+        int allItemCount = weekDay - 1 + dayOfMonth;
         int mode = allItemCount % 7;
         int lineCount = allItemCount / 7;
         if (mode != 0) {
@@ -198,6 +207,11 @@ public class DateView extends View implements DatePickListener {
         drawCell(canvas);
     }
 
+    /**
+     * 只绘制第一个月 Week
+     *
+     * @param canvas
+     */
     protected void drawWeeks(Canvas canvas) {
 
         if (drawWeeks()) {
@@ -210,6 +224,11 @@ public class DateView extends View implements DatePickListener {
         }
     }
 
+    /**
+     * 绘制年月标题
+     *
+     * @param canvas
+     */
     protected void drawMonthAndYear(Canvas canvas) {
 
         int offsetY = drawWeeks() ? (int) (Utils.dp2px(24) + mDatePaint.getFontSpacing()) : 0;
@@ -217,7 +236,7 @@ public class DateView extends View implements DatePickListener {
         float offset = Utils.dp2px(7);
         String text = getMonthAndYear();
         float textWidth = mMonthYearPaint.measureText(text);
-        int centerX = getWidth() >> 1;
+        int centerX = getMeasuredWidth() >> 1;
         canvas.drawText(text, centerX - textWidth / 2, mMonthYearPaint.getFontSpacing() + offset + offsetY, mMonthYearPaint);
 
         canvas.drawLine(0, Utils.dp2px(1) + mMonthYearPaint.getFontSpacing() + offset * 2 + offsetY, getWidth(),
@@ -228,13 +247,16 @@ public class DateView extends View implements DatePickListener {
 
         int year = mCalendar.get(Calendar.YEAR);
         int month = mCalendar.get(Calendar.MONTH) + 1;
-        int weekDay = firstDayCalendar.get(Calendar.DAY_OF_WEEK);
+        int weekDay = mCalendar.get(Calendar.DAY_OF_WEEK);
         int offsetY = drawWeeks() ? (int) (Utils.dp2px(24) + mDatePaint.getFontSpacing()) : 0;
         int currentX = (int) ((weekDay - 1) * itemWidth);
         int currentY = (int) (Utils.dp2px(16) + mMonthYearPaint.getFontSpacing()) + offsetY;
 
         for (int i = 1; i <= dayOfMonth; i++) {
+
             //背景
+            RectF rectF = new RectF(currentX, currentY, currentX + itemWidth, currentY + itemHeight);
+
             if (selectDays.hasSelected()) {
                 if (selectDays.inSelected(year, month, i)) {
                     if (selectDays.isFirst(year, month, i)) {
@@ -245,14 +267,16 @@ public class DateView extends View implements DatePickListener {
                     } else if (selectDays.isLast(year, month, i)) {
                         canvas.drawBitmap(endBitmap, currentX, currentY, mSelectedBgPaint);
                     } else {
-                        RectF rectF = new RectF(currentX, currentY, currentX + itemWidth, currentY + itemHeight);
                         canvas.drawRect(rectF, mSelectedBgPaint);
                     }
                 } else if (selectDays.getFirst().after(year, month, i)) {
                     //draw invalid items bg
-                    canvas.drawRect(currentX, currentY, currentX + itemWidth,
-                            currentY + itemHeight, mInvalidBgPaint);
+                    canvas.drawRect(rectF, mInvalidBgPaint);
+                } else {
+                    canvas.drawRect(rectF, mDateBgPaint);
                 }
+            } else {
+                canvas.drawRect(rectF, mDateBgPaint);
             }
             //日期
             String text = String.valueOf(i);
@@ -273,20 +297,24 @@ public class DateView extends View implements DatePickListener {
                 String tag;
                 float behaviorXWidth, behaviorX, behaviorY;
                 if (selectDays.isFirst(year, month, i)) {
-                    textY -= itemHeight / 4;
-                    tag = "入住";
-                    behaviorXWidth = mDatePaint.measureText(tag);
-                    behaviorX = currentX + (itemWidth - behaviorXWidth) / 2;
-                    behaviorY = currentY + itemHeight * 3 / 4 + mDatePaint.getFontSpacing() / 2;
-                    canvas.drawText(tag, behaviorX, behaviorY, mDatePaint);
-                } else {
-                    if (selectDays.getLast() != null && selectDays.isLast(year, month, i)) {
-                        tag = "退房";
+                    tag = beginTag;
+                    if (!TextUtils.isEmpty(beginTag)) {
+                        textY -= itemHeight / 4;
                         behaviorXWidth = mDatePaint.measureText(tag);
                         behaviorX = currentX + (itemWidth - behaviorXWidth) / 2;
                         behaviorY = currentY + itemHeight * 3 / 4 + mDatePaint.getFontSpacing() / 2;
-                        textY -= itemHeight / 4;
                         canvas.drawText(tag, behaviorX, behaviorY, mDatePaint);
+                    }
+                } else {
+                    if (selectDays.getLast() != null && selectDays.isLast(year, month, i)) {
+                        tag = endTag;
+                        if (!TextUtils.isEmpty(tag)) {
+                            behaviorXWidth = mDatePaint.measureText(tag);
+                            behaviorX = currentX + (itemWidth - behaviorXWidth) / 2;
+                            behaviorY = currentY + itemHeight * 3 / 4 + mDatePaint.getFontSpacing() / 2;
+                            textY -= itemHeight / 4;
+                            canvas.drawText(tag, behaviorX, behaviorY, mDatePaint);
+                        }
                     }
                 }
             } else if (isInvalidDay(year, month, i)) {
@@ -332,9 +360,9 @@ public class DateView extends View implements DatePickListener {
                 mTipsPaint.getTextBounds(tips, 0, tips.length(), tipsBounds);
                 float tipsWidth = tipsBounds.right - tipsBounds.left;
                 float tipsHeight = tipsBounds.bottom - tipsBounds.top;
-                RectF rectF = new RectF(tipsX, tipsY, tipsX + tipsWidth + (int) Utils.dp2px(6),
+                RectF tipsRectF = new RectF(tipsX, tipsY, tipsX + tipsWidth + (int) Utils.dp2px(6),
                         tipsY + mTipsPaint.getFontSpacing() + Utils.dp2px(2));
-                canvas.drawRoundRect(rectF, Utils.dp2px(5), Utils.dp2px(5), mTipsBgPaint);
+                canvas.drawRoundRect(tipsRectF, Utils.dp2px(5), Utils.dp2px(5), mTipsBgPaint);
                 canvas.drawText(tips, tipsX + (int) Utils.dp2px(3), tipsY + Utils.dp2px(1) + tipsHeight, mTipsPaint);
             }
 
@@ -533,7 +561,7 @@ public class DateView extends View implements DatePickListener {
     protected void calculatePointerDateIndex(float x, float y) {
         int year = mCalendar.get(Calendar.YEAR);
         int month = mCalendar.get(Calendar.MONTH) + 1;
-        int weekDay = firstDayCalendar.get(Calendar.DAY_OF_WEEK);
+        int weekDay = mCalendar.get(Calendar.DAY_OF_WEEK);
         int offsetY;
         if (drawWeeks()) {
             offsetY = (int) (Utils.dp2px(40) + mMonthYearPaint.getFontSpacing() + mDatePaint.getFontSpacing());
@@ -562,7 +590,7 @@ public class DateView extends View implements DatePickListener {
         }
 
         //如果选择的日期长度超过最大长度限制
-        if (selectDays.hasSelected()) {
+        if (selectDays.beSelected()) {
             if (getDayRange(selectDays.getFirst(), year, month, dayIndex) > mostSelectDays) {
                 toast(String.format("最多可选择%d天", mostSelectDays));
                 return;
@@ -616,8 +644,6 @@ public class DateView extends View implements DatePickListener {
     public void setCalendar(Calendar mCalendar) {
         this.mCalendar = mCalendar;
         dayOfMonth = mCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-        this.firstDayCalendar = (Calendar) mCalendar.clone();
-        this.firstDayCalendar.set(Calendar.DAY_OF_MONTH, 1);
     }
 
     public void setListener(DatePickListener mListener) {
@@ -653,21 +679,14 @@ public class DateView extends View implements DatePickListener {
 
     public void setDateParameters(DatePickerAdapter.DateModel dateModel) {
         this.defTag = dateModel.defTag;
-
+        this.beginTag = dateModel.beginTag;
+        this.endTag = dateModel.endTag;
         this.startYear = dateModel.startYear;
-
         this.startMonth = dateModel.startMonth;
-
-        this.beforeSelect = dateModel.beforeTodaySelect;
-
         this.selectDays = dateModel.selectDays;
-
         this.invalidDays = dateModel.invalidDays;
-
         this.invalidTips = dateModel.invalidTips;
-
         this.tags = dateModel.tags;
-
         this.mostSelectDays = dateModel.mostSelectNum;
     }
 
@@ -681,7 +700,8 @@ public class DateView extends View implements DatePickListener {
         int montAndYearTextColor = Color.BLACK;
         int dateTextNormalColor = Color.parseColor("#959595");
         int dateTextSelectColor = Color.WHITE;
-        int dateBgColor = Color.parseColor("#42B3FE");
+        int dateSelectBgColor = Color.parseColor("#42B3FE");
+        int dateNormalBgColor = Color.WHITE;
         int invalidBgColor = Color.parseColor("#DEDEDE");
         int invalidTextColor = Color.parseColor("#959595");
         int tipsTextColor = Color.parseColor("#A8A8A8");
@@ -696,7 +716,5 @@ public class DateView extends View implements DatePickListener {
 
         boolean isAutoMeasure = true;//是否自动测量
         boolean beforeSelect = false;//今天之前的日期是否可选
-
-
     }
 }

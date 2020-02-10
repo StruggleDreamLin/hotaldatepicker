@@ -43,6 +43,7 @@ public class DatePickerAdapter extends RecyclerView.Adapter<DatePickerAdapter.Vi
             } else {
                 cloneMonth.set(Calendar.MONTH, month + i - 1);
             }
+            cloneMonth.set(Calendar.DAY_OF_MONTH, 1);
             calendars.add(cloneMonth);
         }
         this.pickListener = listener;
@@ -85,11 +86,12 @@ public class DatePickerAdapter extends RecyclerView.Adapter<DatePickerAdapter.Vi
     public static class DateModel {
         public int startYear = Calendar.getInstance().get(Calendar.YEAR); //开始的年份
         public int startMonth = Calendar.getInstance().get(Calendar.MONTH) + 1; //开始的月份 0-11 + 1
-        public int monthCount; //最多显示几个月
+        public int monthCount = 12; //最多显示几个月
         public int mostSelectNum = 100; //最后可以选择多少天
         public int leastSelectNum = 2; //最后可以选择多少天
-        public boolean beforeTodaySelect = false; //是否可选今天之前的日期
         public String defTag; //默认标签
+        public String beginTag; //第一个选中标签
+        public String endTag; //最后一个标签
         public String invalidTips = "包含无效日期"; //点击无效日期时的提示
         public SelectDays selectDays = new SelectDays(); //选择的日期
         public List<PickerDay> invalidDays = new ArrayList<>(); //无效的日期

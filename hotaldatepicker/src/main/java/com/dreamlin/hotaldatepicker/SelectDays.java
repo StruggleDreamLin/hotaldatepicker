@@ -37,6 +37,14 @@ public class SelectDays implements Serializable {
     }
 
     /**
+     * 将要选择
+     * @return
+     */
+    public boolean beSelected() {
+        return first != null && last == null;
+    }
+
+    /**
      * 判断某天是否被选中
      *
      * @param pickerDay

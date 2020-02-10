@@ -9,6 +9,8 @@ import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 /**
  * <p> Title: DatePickerWrapper </p>
  * <p> Description: </p>
@@ -51,7 +53,8 @@ public class DatePickerView extends RecyclerView {
 
         drawParameters.lineColor = typedArray.getColor(R.styleable.DatePickerView_lineColor, drawParameters.lineColor);
         drawParameters.montAndYearTextColor = typedArray.getColor(R.styleable.DatePickerView_montAndYearTextColor, drawParameters.montAndYearTextColor);
-        drawParameters.dateBgColor = typedArray.getColor(R.styleable.DatePickerView_dateBgColor, drawParameters.dateBgColor);
+        drawParameters.dateSelectBgColor = typedArray.getColor(R.styleable.DatePickerView_dateSelectBgColor, drawParameters.dateSelectBgColor);
+        drawParameters.dateNormalBgColor = typedArray.getColor(R.styleable.DatePickerView_dateNormalBgColor, drawParameters.dateNormalBgColor);
         drawParameters.dateTextNormalColor = typedArray.getColor(R.styleable.DatePickerView_dateNormalTextColor, drawParameters.dateTextNormalColor);
         drawParameters.dateTextSelectColor = typedArray.getColor(R.styleable.DatePickerView_dateSelectTextColor, drawParameters.dateTextSelectColor);
         drawParameters.invalidBgColor = typedArray.getColor(R.styleable.DatePickerView_invalidBgColor, drawParameters.invalidBgColor);
@@ -71,6 +74,20 @@ public class DatePickerView extends RecyclerView {
         this.dateModel = dateModel;
         setLayoutManager(new LinearLayoutManager(getContext()));
         setAdapter(mAdapter);
+    }
+
+    public void updateTags(List<PickerDay> tags) {
+        this.dateModel.tags = tags;
+        mAdapter.notifyDataSetChanged();
+    }
+
+    public void updateInvalidDays(List<PickerDay> invalidDays) {
+        this.dateModel.invalidDays = invalidDays;
+        mAdapter.notifyDataSetChanged();
+    }
+
+    public void update() {
+        mAdapter.notifyDataSetChanged();
     }
 
 }

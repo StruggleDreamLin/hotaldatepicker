@@ -9,6 +9,9 @@
     <com.dreamlin.hotaldatepicker.DatePickerView
         android:id="@+id/date_wrapper"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:autoMeasure="true"
+        app:canSelectBeforeDay="false"
+        app:dateNormalBgColor="#FFFFFF" />
 
 </RelativeLayout>
