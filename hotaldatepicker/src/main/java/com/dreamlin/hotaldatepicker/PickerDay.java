@@ -37,6 +37,22 @@ public class PickerDay implements Comparable<PickerDay> {
         this.tag = tag;
     }
 
+    public int getYear() {
+        return year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
     public PickerDay(int year, int month, int day) {
         this.year = year;
         this.month = month;
