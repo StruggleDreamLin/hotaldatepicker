@@ -8,8 +8,12 @@ an android hotal datepicker
 ### 引用
 
 ```groovy
+//androidX 
 implementation 'com.dreamlin.hotaldatepicker:hotaldatepicker:1.0.0'
 implementation 'androidx.recyclerview:recyclerview-selection:1.1.0-rc01'
+//非AndroidX
+implementation 'com.dreamlin.hotaldatepicker:hotaldatepicker:0.0.1'
+implementation 'com.android.support:recyclerview-v7:28.0.0'
 ```
 
 ### 属性
