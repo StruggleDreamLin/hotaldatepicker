@@ -17,6 +17,11 @@ public class SelectDays implements Parcelable {
     PickerDay first;
     PickerDay last;
 
+    public SelectDays() {
+    }
+
+
+
     protected SelectDays(Parcel in) {
         first = in.readParcelable(PickerDay.class.getClassLoader());
         last = in.readParcelable(PickerDay.class.getClassLoader());
