@@ -1,5 +1,8 @@
 package com.dreamlin.hotaldatepicker;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.io.Serializable;
 
 /**
@@ -11,10 +14,41 @@ import java.io.Serializable;
  * version: V1.0.0
  * Created by dreamlin on 2020-02-05.
  */
-public class SelectDays implements Serializable {
+public class SelectDays implements Parcelable {
 
     PickerDay first;
     PickerDay last;
+
+    public SelectDays() {
+    }
+
+    protected SelectDays(Parcel in) {
+        first = in.readParcelable(PickerDay.class.getClassLoader());
+        last = in.readParcelable(PickerDay.class.getClassLoader());
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeParcelable(first, flags);
+        dest.writeParcelable(last, flags);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<SelectDays> CREATOR = new Creator<SelectDays>() {
+        @Override
+        public SelectDays createFromParcel(Parcel in) {
+            return new SelectDays(in);
+        }
+
+        @Override
+        public SelectDays[] newArray(int size) {
+            return new SelectDays[size];
+        }
+    };
 
     public PickerDay getFirst() {
         return first;
