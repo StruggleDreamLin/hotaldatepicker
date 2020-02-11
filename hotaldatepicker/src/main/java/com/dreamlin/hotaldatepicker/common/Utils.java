@@ -7,10 +7,9 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.annotation.DrawableRes;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
-
-import androidx.annotation.DrawableRes;
 
 /**
  * <p> Title: Utils </p>

@@ -1,6 +1,6 @@
 package com.dreamlin.hotaldatepicker;
 
-import androidx.annotation.Nullable;
+import android.support.annotation.Nullable;
 
 import java.util.Calendar;
 import java.util.Date;
