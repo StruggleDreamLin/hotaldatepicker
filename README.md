@@ -9,7 +9,7 @@ an android hotal datepicker
 
 ```groovy
 //androidX 
-implementation 'com.dreamlin.hotaldatepicker:hotaldatepicker:1.0.0'
+implementation 'com.dreamlin.hotaldatepicker:hotaldatepicker:1.0.1'
 implementation 'androidx.recyclerview:recyclerview-selection:1.1.0-rc01'
 //非AndroidX
 implementation 'com.dreamlin.hotaldatepicker:hotaldatepicker:0.0.2'
