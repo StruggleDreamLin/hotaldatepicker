@@ -1,5 +1,8 @@
 package com.dreamlin.hotaldatepicker;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.Nullable;
 
 import java.util.Calendar;
@@ -14,12 +17,44 @@ import java.util.Date;
  * version: V1.0.0
  * Created by dreamlin on 2020-02-05.
  */
-public class PickerDay implements Comparable<PickerDay> {
+public class PickerDay implements Comparable<PickerDay>, Parcelable {
 
     int year;
     int month;
     int day;
     String tag;
+
+    protected PickerDay(Parcel in) {
+        year = in.readInt();
+        month = in.readInt();
+        day = in.readInt();
+        tag = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(year);
+        dest.writeInt(month);
+        dest.writeInt(day);
+        dest.writeString(tag);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<PickerDay> CREATOR = new Creator<PickerDay>() {
+        @Override
+        public PickerDay createFromParcel(Parcel in) {
+            return new PickerDay(in);
+        }
+
+        @Override
+        public PickerDay[] newArray(int size) {
+            return new PickerDay[size];
+        }
+    };
 
     public void setYear(int year) {
         this.year = year;
