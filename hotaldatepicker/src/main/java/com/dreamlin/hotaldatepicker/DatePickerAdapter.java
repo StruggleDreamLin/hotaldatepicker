@@ -44,6 +44,9 @@ public class DatePickerAdapter extends RecyclerView.Adapter<DatePickerAdapter.Vi
                 cloneMonth.set(Calendar.MONTH, month + i - 1);
             }
             cloneMonth.set(Calendar.DAY_OF_MONTH, 1);
+            cloneMonth.set(Calendar.HOUR_OF_DAY, 12);
+            cloneMonth.set(Calendar.MINUTE, 0);
+            cloneMonth.set(Calendar.SECOND, 0);
             calendars.add(cloneMonth);
         }
         this.pickListener = listener;
