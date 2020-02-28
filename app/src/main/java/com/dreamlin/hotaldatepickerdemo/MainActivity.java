@@ -2,6 +2,7 @@ package com.dreamlin.hotaldatepickerdemo;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.dreamlin.hotaldatepicker.DatePickListener;
 import com.dreamlin.hotaldatepicker.DatePickerAdapter;
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
 //        dateModel.beginTag = "";
 //        dateModel.endTag = "";
         dateModel.monthCount = 12;
-        dateModel.mostSelectNum = 10;
+        dateModel.mostSelectNum = 31;
         dateModel.invalidTips = "包含无效日期";
         dateModel.invalidDays = invalidDays;
         dateModel.tags = tags;
@@ -35,17 +36,17 @@ public class MainActivity extends AppCompatActivity {
         dateView.setParams(dateModel, new DatePickListener() {
             @Override
             public void onFirstSelected(PickerDay pickerDay) {
-                System.out.println("MainActivity.onFirstSelected");
+                Toast.makeText(MainActivity.this, "MainActivity.onFirstSelected", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onRangeSelected(PickerDay first, PickerDay last) {
-                System.out.println("MainActivity.onRangeSelected");
+                Toast.makeText(MainActivity.this, "MainActivity.onRangeSelected", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFirstSelectCancel(PickerDay pickerDay) {
-                System.out.println("MainActivity.onFirstSelectCancel");
+                Toast.makeText(MainActivity.this, "MainActivity.onFirstSelectCancel", Toast.LENGTH_SHORT).show();
             }
         });
     }

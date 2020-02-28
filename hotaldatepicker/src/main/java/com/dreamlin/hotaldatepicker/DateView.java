@@ -581,7 +581,6 @@ public class DateView extends View implements DatePickListener {
             return;
         }
 
-
         //如果选择范围内包含无效日期
         if (containInvalidDay(year, month, dayIndex)) {
             toast(invalidTips);

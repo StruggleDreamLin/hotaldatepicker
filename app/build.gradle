@@ -20,8 +20,8 @@ android {
 }
 
 dependencies {
-//    implementation project(':hotaldatepicker')
-    implementation 'com.dreamlin.hotaldatepicker:hotaldatepicker:0.0.2'
+    implementation project(':hotaldatepicker')
+//    implementation 'com.dreamlin.hotaldatepicker:hotaldatepicker:0.0.3'
     implementation 'com.android.support:recyclerview-v7:28.0.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'com.android.support:appcompat-v7:28.+'

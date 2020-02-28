@@ -10,7 +10,7 @@ import java.util.Date;
 /**
  * <p> Title: PickerDay </p>
  * <p> Description: </p>
- *
+ * <p>
  * author: dreamlin
  * date: 2020-02-05
  * version: V1.0.0
@@ -161,8 +161,8 @@ public class PickerDay implements Comparable<PickerDay>, Parcelable {
 
     public int rangeDays(int year, int month, int day) {
         int days;
-        Date firstDate = new Date(this.year, this.month, this.day);
-        Date lastDate = new Date(year, month, day);
+        Date firstDate = new Date(this.year, this.month - 1, this.day, 12, 0, 0);
+        Date lastDate = new Date(year, month - 1, day, 12, 0, 0);
         long interval = firstDate.getTime() - lastDate.getTime();
         days = (int) (interval / (24 * 3600 * 1000L));
         return Math.abs(days);
