@@ -3,7 +3,7 @@ an android hotal datepicker
 
 ### 效果
 
-![](./capture/datepicker.gif)
+![](https://upload-images.jianshu.io/upload_images/6850504-35e65ffb1680c8c6.gif?imageMogr2/auto-orient/strip)
 
 ### 引用
 
